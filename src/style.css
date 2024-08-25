@@ -66,22 +66,23 @@ main {
   color: #f65282;
 }
 
-.weather-app-temperature-container {
+.weather-app-temp-container {
   display: flex;
 }
 
 .weather-app-icon {
-  font-size: 44px;
-  margin-top: 22px;
+  font-size: 50px;
+  margin-top: 15px;
 }
 
-.weather-app-temperature {
-  font-size: 88px;
+.weather-app-temp {
+  font-size: 60px;
   margin-left: 10px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
-.weatehr-app-unit {
+.weather-app-metric {
   margin-top: 16px;
   font-size: 28px;
 }
