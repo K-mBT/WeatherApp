@@ -55,3 +55,26 @@ let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", giveResults);
 
 searchCity("Darwin");
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  let forecastHtml = "";
+
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      `<div class="weather-forecast-day">
+    <div class="forecast-day-name">${day}</div>
+    <div class="forecast-icon">⛅️</div>
+    <div class="forecast-day-temps"> 
+        <div class="forecast-day-temp"><strong>15°</strong></div> 
+        <div class="forecast-day-temp">9°</div>
+    </div>
+    </div>`;
+  });
+  forecastElement.innerHTML = forecastHtml;
+}
+
+displayForecast();
