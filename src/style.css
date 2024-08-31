@@ -111,8 +111,7 @@ footer {
 }
 
 .forecast-icon {
-  font-size: 32px;
-  text-align: center;
+  width: 52px;
 }
 
 .forecast-day-temps {

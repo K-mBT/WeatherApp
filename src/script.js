@@ -16,6 +16,8 @@ function changeWeather(response) {
   windElement.innerHTML = `${response.data.wind.speed}km/h`;
   temperatureElement.innerHTML = Math.round(temperature);
   iconElement.setAttribute("src", response.data.condition.icon_url);
+
+  getForecast(response.data.city);
 }
 
 function formatDate(date) {
@@ -56,25 +58,44 @@ searchFormElement.addEventListener("submit", giveResults);
 
 searchCity("Darwin");
 
-function displayForecast() {
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "t177fb2e6d160a85cb2o5b8390de4f39";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios(apiUrl).then(displayForecast);
+  console.log(apiUrl);
+}
+
+function displayForecast(response) {
+  console.log(response);
+
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
   let forecastHtml = "";
 
-  days.forEach(function (day) {
-    forecastHtml =
-      forecastHtml +
-      `<div class="weather-forecast-day">
-    <div class="forecast-day-name">${day}</div>
-    <div class="forecast-icon">⛅️</div>
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="weather-forecast-day">
+    <div class="forecast-day-name">${formatDay(day.time)}</div>
+    <img src="${day.condition.icon_url}" class="forecast-icon"/>
     <div class="forecast-day-temps"> 
-        <div class="forecast-day-temp"><strong>15°</strong></div> 
-        <div class="forecast-day-temp">9°</div>
+        <div class="forecast-day-temp"><strong>${Math.round(
+          day.temperature.maximum
+        )}°</strong></div> 
+        <div class="forecast-day-temp">${Math.round(
+          day.temperature.minimum
+        )}°</div>
     </div>
     </div>`;
+    }
   });
   forecastElement.innerHTML = forecastHtml;
 }
-
-displayForecast();
